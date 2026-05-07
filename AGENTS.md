@@ -1,6 +1,6 @@
-# jason-calalo-portfolio
+# jasonc11110-portfolio
 
-Portfolio site for Jason Calalo. Built with Next.js 16 (App Router), Tailwind v4, shadcn/ui, Framer Motion.
+Portfolio site for jasonc11110. Built with Next.js 16 (App Router), Tailwind v4, shadcn/ui, Framer Motion.
 
 ## Commands
 

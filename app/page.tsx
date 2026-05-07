@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
 import { ProjectTimeline } from "@/components/project-timeline"
 import { Footer } from "@/components/footer"
+import { ScrollIndicator } from "@/components/scroll-indicator"
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <ProjectTimeline />
       <Footer />
+      <ScrollIndicator />
     </main>
   )
 }

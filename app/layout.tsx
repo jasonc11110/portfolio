@@ -7,19 +7,19 @@ import './globals.css'
 const geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Jason Calalo | Developer & Designer',
+  title: 'Jason Calalo',
   description: 'Personal portfolio of Jason Calalo — crafting digital experiences that blend thoughtful design with robust engineering.',
   keywords: ['developer', 'designer', 'portfolio', 'next.js', 'react', 'typescript', 'full-stack'],
   authors: [{ name: 'Jason Calalo' }],
   openGraph: {
-    title: 'Jason Calalo | Developer & Designer',
+    title: 'Jason Calalo',
     description: 'Crafting digital experiences that blend thoughtful design with robust engineering.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jason Calalo | Developer & Designer',
+    title: 'Jason Calalo',
     description: 'Crafting digital experiences that blend thoughtful design with robust engineering.',
   },
   icons: {
