@@ -1,0 +1,248 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   THEME SYSTEM — Retro Portfolio
+   All colors defined as CSS custom properties.
+   Swapping themes = overriding these values.
+   ============================================ */
+
+:root {
+  /* Core palette — muted retro (default) */
+  --background: #0a0a0a;
+  --foreground: #e0e0d8;
+  --card: #141410;
+  --card-foreground: #e0e0d8;
+  --popover: #141410;
+  --popover-foreground: #e0e0d8;
+  --primary: #7fdb8a;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #c0c0b8;
+  --muted: #1a1a1a;
+  --muted-foreground: #6b6b5e;
+  --accent: #f0c040;
+  --accent-foreground: #0a0a0a;
+  --destructive: #d45555;
+  --destructive-foreground: #0a0a0a;
+  --border: #2a2a24;
+  --input: #1a1a1a;
+  --ring: #7fdb8a;
+
+  /* Retro accent palette */
+  --retro-cyan: #5ec4c4;
+  --retro-red: #d45555;
+  --retro-yellow: #d4b840;
+  --retro-blue: #5577cc;
+  --retro-orange: #cc8844;
+  --retro-purple: #9966cc;
+
+  /* Chart tokens (unused but kept for shadcn compatibility) */
+  --chart-1: #7fdb8a;
+  --chart-2: #f0c040;
+  --chart-3: #5ec4c4;
+  --chart-4: #cc8844;
+  --chart-5: #9966cc;
+
+  --radius: 0.25rem;
+  --sidebar: #141410;
+  --sidebar-foreground: #e0e0d8;
+  --sidebar-primary: #7fdb8a;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #e0e0d8;
+  --sidebar-border: #2a2a24;
+  --sidebar-ring: #7fdb8a;
+}
+
+@theme inline {
+  --font-sans: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius));
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Retro accent colors as utility classes */
+  --color-retro-cyan: var(--retro-cyan);
+  --color-retro-red: var(--retro-red);
+  --color-retro-yellow: var(--retro-yellow);
+  --color-retro-blue: var(--retro-blue);
+  --color-retro-orange: var(--retro-orange);
+  --color-retro-purple: var(--retro-purple);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+
+::selection {
+  background: oklch(0.7 0.18 150 / 0.3);
+  color: var(--foreground);
+}
+
+/* ============================================
+   SMOOTH SCROLL
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   RETRO UTILITY CLASSES
+   ============================================ */
+
+/* Scanline overlay */
+.scanlines {
+  position: relative;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 1;
+}
+
+/* CRT text glow */
+.crt-glow {
+  text-shadow: 0 0 6px var(--primary), 0 0 12px var(--primary);
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  color: var(--primary);
+}
+
+/* Pixel / retro border */
+.pixel-border {
+  border: 2px solid var(--border);
+}
+
+/* Terminal prompt */
+.terminal-prompt::before {
+  content: '$ ';
+  color: var(--primary);
+}
+
+/* Comment style */
+.terminal-comment {
+  color: var(--muted-foreground);
+}
+
+/* Image shimmer placeholder */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.image-placeholder {
+  background: linear-gradient(
+    90deg,
+    var(--card) 25%,
+    var(--secondary) 50%,
+    var(--card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
