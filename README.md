@@ -12,7 +12,5 @@ A retro-modern portfolio built with **Next.js 16** (App Router), **Tailwind CSS 
 - **Deployment**: Vercel
 
 ## Ngangawen
-1. Update my actual information
-2. Update Title
-3. Add sounds to loading page/tetris and homepage(?)
-4. Update project information and actual screenshots.
++ Add sounds to loading page/tetris and homepage(?)
++ Add PixiJS

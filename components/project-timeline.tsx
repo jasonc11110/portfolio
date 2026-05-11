@@ -16,7 +16,6 @@ interface TimelineProject {
   title: string
   description: string
   image: string
-  href: string
   date: string
   stack?: string[]
   github?: string
@@ -30,10 +29,9 @@ const projects: TimelineProject[] = [
     description: "Interactive geospatial visualization platform mapping Surface Urban Heat Island effects using DBSCAN clustering to identify significant heat clusters around Valenzuela City, helping urban planners and researchers analyze thermal patterns.",
     longDescription: "An advanced geospatial analytics platform that combines satellite thermal imaging data with DBSCAN clustering to detect and visualize significant heat clusters around Valenzuela City. Users can explore heat distribution patterns across urban landscapes, compare temporal changes, and generate reports for urban planning decisions. The tool integrates QGIS-processed raster data with interactive mapping to provide comprehensive insights into urban heat dynamics.",
     image: "/projects/inet.png",
-    href: "#",
     date: "2025-2026",
     stack: ["JavaScript", "MapLibre GL JS", "GeoJSON", "Python", "React", "QGIS"],
-    github: "https://github.com/jasoncalalo/inet-suhi",
+    github: "https://github.com/jasonc11110/INET-Interactive-Map",
     liveUrl: "#",
   },
   {
@@ -41,10 +39,9 @@ const projects: TimelineProject[] = [
     description: "Ensemble-based diagnostic application combining SE-ResNeXt50, DenseNet121, and EfficientNetB6 with TensorFlow and OpenCV to analyze retinal fundus images, paired with a React frontend and Flask API.",
     longDescription: "A medical imaging platform using an ensemble of SE-ResNeXt50, DenseNet121, and EfficientNetB6 models combined with TensorFlow and OpenCV image processing to analyze retinal scans. The system connects a React frontend with a Flask REST API backend, handling image upload, server-side processing pipelines, database storage of patient records, and structured report generation. Built with a focus on ensemble model inference pipelines and responsive API design for healthcare workflows.",
     image: "/projects/dr.png",
-    href: "#",
     date: "2024-2025",
     stack: ["Python", "TensorFlow", "OpenCV", "Flask", "React"],
-    github: "https://github.com/jasoncalalo/diabetic-retinopathy-detector",
+    github: "https://github.com/jasonc11110/retinopathy-portal",
     liveUrl: "#",
   },
 ]
@@ -56,10 +53,7 @@ const RETRO_COLOR_MAP: Record<string, "cyan" | "red" | "yellow" | "blue" | "oran
   Flask: "green",
   React: "cyan",
   JavaScript: "yellow",
-  Leaflet: "green",
   GeoJSON: "blue",
-  "Node.js": "green",
-  PostgreSQL: "purple",
   "MapLibre GL JS": "blue",
   QGIS: "green",
 }
@@ -174,7 +168,6 @@ function TimelineSection({
 }: {
   project: TimelineProject
   index: number
-  total: number
   onProjectClick: (project: TimelineProject) => void
 }) {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -370,7 +363,6 @@ export function ProjectTimeline() {
           key={project.title}
           project={project}
           index={index}
-          total={projects.length}
           onProjectClick={handleProjectClick}
         />
       ))}

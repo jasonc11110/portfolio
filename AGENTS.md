@@ -12,6 +12,8 @@ pnpm start        # production server
 pnpm lint         # TypeScript type-check (tsc --noEmit)
 ```
 
+> **Troubleshooting — EACCES / port in use:** If `pnpm dev` fails with `EACCES: permission denied`, Hermes may be occupying port ranges. Run `netsh interface ipv4 show excludedportrange protocol=tcp` to check. If port 3000 falls in an excluded range, stop Hermes or use a different port (`pnpm dev -p <port>`).
+
 ## Architecture
 
 - `app/layout.tsx` — root layout: retro dark theme, Geist Mono font, SEO metadata, Vercel Analytics (prod only), full-page snap-mandatory

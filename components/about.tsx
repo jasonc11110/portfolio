@@ -53,7 +53,7 @@ export function About() {
                 <span className="text-foreground">cat bio.txt</span>
               </p>
               <p className="text-muted-foreground">
-                I&apos;m a developer and designer passionate about building
+                I&apos;m a Full-Stack developer and AI engineer passionate about building
                 robust systems — from cloud infrastructure and APIs to
                 machine learning and computer vision applications.
               </p>
@@ -63,9 +63,6 @@ export function About() {
                 solutions that make an impact.
               </p>
               <div className="pt-2 border-t border-border">
-                <p className="text-[11px] text-muted-foreground/60 mt-2">
-                  {/* Stats as env vars */}
-                </p>
                 <div className="mt-3 space-y-1 text-xs font-mono">
                   <div className="flex gap-3">
                     <span className="text-primary">YEARS_BUILDING</span>
