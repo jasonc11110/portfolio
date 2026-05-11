@@ -66,10 +66,12 @@ function useAutoTetris() {
   const [renderBoard, setRenderBoard] = useState<number[][]>(boardRef.current)
   const [gameOver, setGameOver] = useState(false)
   const [shake, setShake] = useState(false)
+  const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0 })
   const pieceRef = useRef<{ shape: number[][]; color: string; x: number; y: number } | null>(null)
   const spawnCountRef = useRef(0)
 
   const triggerShake = useCallback(() => {
+    setShakeOffset({ x: Math.random() * 4 - 2, y: Math.random() * 4 - 2 })
     setShake(true)
     setTimeout(() => setShake(false), 100)
   }, [])
@@ -152,7 +154,7 @@ function useAutoTetris() {
     }
   }, [triggerShake])
 
-  return { renderBoard, gameOver, shake }
+  return { renderBoard, gameOver, shake, shakeOffset }
 }
 
 function drawBoard(ctx: CanvasRenderingContext2D, board: number[][], gameOver: boolean) {
@@ -225,7 +227,7 @@ function drawBoard(ctx: CanvasRenderingContext2D, board: number[][], gameOver: b
 
 export function LoadingScreenProvider({ children }: { children: React.ReactNode }) {
   const [showLoading, setShowLoading] = useState(true)
-  const { renderBoard, gameOver, shake } = useAutoTetris()
+  const { renderBoard, gameOver, shake, shakeOffset } = useAutoTetris()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // Draw board on each render
@@ -259,7 +261,7 @@ export function LoadingScreenProvider({ children }: { children: React.ReactNode 
             <div
               className="relative"
               style={{
-                transform: shake ? `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)` : "none",
+                transform: shake ? `translate(${shakeOffset.x}px, ${shakeOffset.y}px)` : "none",
                 transition: shake ? "none" : "transform 0.05s ease-out",
               }}
             >

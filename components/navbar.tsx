@@ -55,7 +55,7 @@ export function Navbar() {
             <span className="text-border">|</span>
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/jasonc11110"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"
@@ -64,7 +64,7 @@ export function Navbar() {
                 <Github className="h-3.5 w-3.5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/jason-calalo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200"

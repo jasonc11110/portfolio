@@ -27,20 +27,20 @@ interface TimelineProject {
 const projects: TimelineProject[] = [
   {
     title: "INET - Interactive Map for SUHI",
-    description: "Interactive geospatial visualization platform mapping Surface Urban Heat Island effects, helping urban planners and researchers analyze thermal patterns across metropolitan areas.",
-    longDescription: "An advanced geospatial analytics platform that combines satellite thermal imaging data with interactive mapping capabilities. Users can explore heat distribution patterns across urban landscapes, compare temporal changes, and generate reports for urban planning decisions. The tool integrates multiple data sources to provide comprehensive insights into urban heat dynamics.",
-    image: "/projects/project-2.jpg",
+    description: "Interactive geospatial visualization platform mapping Surface Urban Heat Island effects using DBSCAN clustering to identify significant heat clusters around Valenzuela City, helping urban planners and researchers analyze thermal patterns.",
+    longDescription: "An advanced geospatial analytics platform that combines satellite thermal imaging data with DBSCAN clustering to detect and visualize significant heat clusters around Valenzuela City. Users can explore heat distribution patterns across urban landscapes, compare temporal changes, and generate reports for urban planning decisions. The tool integrates QGIS-processed raster data with interactive mapping to provide comprehensive insights into urban heat dynamics.",
+    image: "/projects/inet.png",
     href: "#",
     date: "2025-2026",
-    stack: ["JavaScript", "Leaflet", "GeoJSON", "Node.js", "PostgreSQL"],
+    stack: ["JavaScript", "MapLibre GL JS", "GeoJSON", "Python", "React", "QGIS"],
     github: "https://github.com/jasoncalalo/inet-suhi",
     liveUrl: "#",
   },
   {
     title: "Diabetic Retinopathy Detector",
-    description: "Diagnostic application applying machine learning and image processing with TensorFlow and OpenCV to analyze retinal fundus images, paired with a React frontend and Flask API.",
-    longDescription: "A medical imaging platform combining TensorFlow-based models with OpenCV image processing to analyze retinal scans. The system connects a React frontend with a Flask REST API backend, handling image upload, server-side processing pipelines, database storage of patient records, and structured report generation. Built with a focus on efficient image processing pipelines and responsive API design for healthcare workflows.",
-    image: "/projects/project-1.jpg",
+    description: "Ensemble-based diagnostic application combining SE-ResNeXt50, DenseNet121, and EfficientNetB6 with TensorFlow and OpenCV to analyze retinal fundus images, paired with a React frontend and Flask API.",
+    longDescription: "A medical imaging platform using an ensemble of SE-ResNeXt50, DenseNet121, and EfficientNetB6 models combined with TensorFlow and OpenCV image processing to analyze retinal scans. The system connects a React frontend with a Flask REST API backend, handling image upload, server-side processing pipelines, database storage of patient records, and structured report generation. Built with a focus on ensemble model inference pipelines and responsive API design for healthcare workflows.",
+    image: "/projects/dr.png",
     href: "#",
     date: "2024-2025",
     stack: ["Python", "TensorFlow", "OpenCV", "Flask", "React"],
@@ -60,6 +60,8 @@ const RETRO_COLOR_MAP: Record<string, "cyan" | "red" | "yellow" | "blue" | "oran
   GeoJSON: "blue",
   "Node.js": "green",
   PostgreSQL: "purple",
+  "MapLibre GL JS": "blue",
+  QGIS: "green",
 }
 
 function ProjectModal({
@@ -80,95 +82,86 @@ function ProjectModal({
         showCloseButton={false}
       >
         <DialogTitle className="sr-only">{project.title}</DialogTitle>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          >
-            <TerminalWindow title={`~/projects/${project.title.toLowerCase().replace(/\s+/g, "-")}`}>
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="relative w-full md:w-[320px] flex-shrink-0">
-                  <div className="aspect-square border-2 border-border overflow-hidden bg-secondary/20">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={320}
-                      height={320}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h2 className="text-xl md:text-2xl font-mono font-bold text-foreground">
-                        {project.title}
-                      </h2>
-                      <span className="text-[11px] font-mono text-primary mt-1 block">
-                        // {project.date}
-                      </span>
-                    </div>
-                    <button
-                      onClick={onClose}
-                      className="p-1.5 border border-border hover:border-primary hover:text-primary transition-colors text-muted-foreground"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-4 font-mono">
-                    {project.longDescription || project.description}
-                  </p>
-
-                  {project.stack && (
-                    <div className="mt-auto pt-4">
-                      <p className="text-[11px] font-mono text-muted-foreground mb-2">
-                        <span className="text-primary">$</span> ls tech-stack/
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.stack.map((tech) => (
-                          <RetroTag
-                            key={tech}
-                            label={tech}
-                            color={RETRO_COLOR_MAP[tech] || "green"}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex gap-3 mt-4">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border-2 border-border px-4 py-2 text-[11px] font-mono tracking-widest text-foreground transition-all duration-200 hover:border-primary hover:text-primary"
-                      >
-                        <Github className="h-3.5 w-3.5" />
-                        GITHUB
-                      </a>
-                    )}
-                    {project.liveUrl && project.liveUrl !== "#" && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border-2 border-primary px-4 py-2 text-[11px] font-mono tracking-widest text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
-                      >
-                        <ExternalLink className="h-3.5 w-3.5" />
-                        LIVE_DEMO
-                      </a>
-                    )}
-                  </div>
-                </div>
+        <TerminalWindow title={`~/projects/${project.title.toLowerCase().replace(/\s+/g, "-")}`}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="relative w-full md:w-[320px] flex-shrink-0">
+              <div className="aspect-square border-2 border-border overflow-hidden bg-secondary/20">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={320}
+                  height={320}
+                  className="h-full w-full object-cover"
+                />
               </div>
-            </TerminalWindow>
-          </motion.div>
-        )}
+            </div>
+
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-mono font-bold text-foreground">
+                    {project.title}
+                  </h2>
+                  <span className="text-[11px] font-mono text-primary mt-1 block">
+                    // {project.date}
+                  </span>
+                </div>
+                <button
+                  onClick={onClose}
+                  className="p-1.5 border border-border hover:border-primary hover:text-primary transition-colors text-muted-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <p className="text-sm text-muted-foreground leading-relaxed mt-4 font-mono">
+                {project.longDescription || project.description}
+              </p>
+
+              {project.stack && (
+                <div className="mt-auto pt-4">
+                  <p className="text-[11px] font-mono text-muted-foreground mb-2">
+                    <span className="text-primary">$</span> ls tech-stack/
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tech) => (
+                      <RetroTag
+                        key={tech}
+                        label={tech}
+                        color={RETRO_COLOR_MAP[tech] || "green"}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex gap-3 mt-4">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border-2 border-border px-4 py-2 text-[11px] font-mono tracking-widest text-foreground transition-all duration-200 hover:border-primary hover:text-primary"
+                  >
+                    <Github className="h-3.5 w-3.5" />
+                    GITHUB
+                  </a>
+                )}
+                {project.liveUrl && project.liveUrl !== "#" && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border-2 border-primary px-4 py-2 text-[11px] font-mono tracking-widest text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    LIVE_DEMO
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </TerminalWindow>
       </DialogContent>
     </Dialog>
   )
@@ -316,7 +309,8 @@ function TimelineHeader() {
   return (
     <section
       ref={ref}
-      className="h-[60vh] flex flex-col items-center justify-center snap-center"
+      className="flex flex-col items-center justify-center snap-center"
+      style={{ height: "var(--timeline-header-height)" }}
     >
       <motion.div
         className="text-center px-6"
@@ -355,16 +349,15 @@ export function ProjectTimeline() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setTimeout(() => setSelectedProject(null), 200)
   }
 
   return (
-    <section id="projects" className="snap-start relative">
+    <section id="projects" className="snap-start relative" style={{ "--timeline-header-height": "60vh" } as React.CSSProperties}>
       {/* Static continuous dotted line with gradient fade */}
       <div
         className="absolute left-1/2 w-0 -translate-x-1/2 border-l-2 border-dashed border-primary pointer-events-none z-10"
         style={{
-          top: "calc(60vh + 1.5rem)",
+          top: "calc(var(--timeline-header-height) + 1.5rem)",
           bottom: "2rem",
           maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 5%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.3) 48%, rgba(0,0,0,0.3) 52%, rgba(0,0,0,1) 60%, rgba(0,0,0,1) 85%, rgba(0,0,0,0.3) 95%, transparent 100%)",
           WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 5%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.3) 48%, rgba(0,0,0,0.3) 52%, rgba(0,0,0,1) 60%, rgba(0,0,0,1) 85%, rgba(0,0,0,0.3) 95%, transparent 100%)",

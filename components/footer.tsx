@@ -50,7 +50,7 @@ export function Footer() {
           </p>
 
           <motion.a
-            href="mailto:hello@jasoncalalo.com"
+            href="mailto:jcalalo0110@gmail.com"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="mt-10 inline-flex items-center gap-3 border-2 border-primary px-8 py-3 text-xs font-mono tracking-widest text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
@@ -61,8 +61,8 @@ export function Footer() {
 
           <div className="mt-12 flex items-center gap-6">
             {[
-              { icon: Github, href: "https://github.com", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+              { icon: Github, href: "https://github.com/jasonc11110", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/jason-calalo", label: "LinkedIn" },
             ].map((s) => (
               <a
                 key={s.label}

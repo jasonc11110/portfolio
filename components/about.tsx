@@ -14,6 +14,10 @@ const skills = [
   { label: "PostgreSQL", color: "purple" as const },
   { label: "TensorFlow / ML", color: "yellow" as const },
   { label: "OpenCV", color: "red" as const },
+  { label: "Java", color: "blue" as const },
+  { label: "C++", color: "purple" as const },
+  { label: "DevNet Associate", color: "orange" as const },
+  { label: "CCNA", color: "cyan" as const },
 ]
 
 export function About() {
@@ -66,12 +70,12 @@ export function About() {
                   <div className="flex gap-3">
                     <span className="text-primary">YEARS_BUILDING</span>
                     <span className="text-muted-foreground">=</span>
-                    <span className="text-foreground">2+</span>
+                    <span className="text-foreground">3</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-primary">PROJECTS</span>
                     <span className="text-muted-foreground">=</span>
-                    <span className="text-foreground">5+</span>
+                    <span className="text-foreground">2</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-primary">COFFEE_CONSUMED</span>
@@ -107,7 +111,7 @@ export function About() {
                 <span className="text-foreground">whoami</span>
               </p>
               <p className="text-muted-foreground">
-                full-stack developer, ml engineer, cloud architect
+                Full-Stack developer, AI engineer, ML engineer
               </p>
             </div>
           </TerminalWindow>

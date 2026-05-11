@@ -5,9 +5,9 @@ import { motion } from "framer-motion"
 
 export function Hero() {
   const socials = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@jasoncalalo.com", label: "Email" },
+    { icon: Github, href: "https://github.com/jasonc11110", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/jason-calalo", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:jcalalo0110@gmail.com", label: "Email" },
   ]
 
   return (
@@ -24,10 +24,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-          className="text-3xl md:text-5xl lg:text-6xl font-mono font-bold tracking-[0.1em] text-foreground uppercase"
+          className="text-3xl md:text-5xl lg:text-6xl font-mono font-bold tracking-tight text-foreground whitespace-nowrap"
         >
-          <span className="block">Jason</span>
-          <span className="block text-primary ml-6 md:ml-10">Calalo</span>
+          Hello, I'm <span className="text-primary">Jason Calalo</span>.
         </motion.h1>
 
         {/* Tagline */}
@@ -35,11 +34,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-          className="mt-6 max-w-xl text-sm md:text-base text-muted-foreground leading-relaxed font-mono"
+          className="mt-4 text-lg md:text-xl lg:text-2xl font-mono font-semibold text-foreground/90"
         >
-          <span className="text-muted-foreground/50">// </span>
-          Developer & Designer crafting digital experiences that blend thoughtful
-          design with robust engineering.
+          I'm an Aspiring Full-Stack Developer
         </motion.p>
 
         {/* CTA buttons */}
