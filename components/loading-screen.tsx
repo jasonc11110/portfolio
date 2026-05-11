@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { playDropSound, playGameOverSound, unlockAudio } from "@/lib/tetris-sounds"
 
 // --- Tetris constants ---
 const COLS = 10
@@ -67,8 +68,14 @@ function useAutoTetris() {
   const [gameOver, setGameOver] = useState(false)
   const [shake, setShake] = useState(false)
   const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0 })
+  const [started, setStarted] = useState(false)
   const pieceRef = useRef<{ shape: number[][]; color: string; x: number; y: number } | null>(null)
   const spawnCountRef = useRef(0)
+
+  const start = useCallback(async () => {
+    await unlockAudio()
+    setStarted(true)
+  }, [])
 
   const triggerShake = useCallback(() => {
     setShakeOffset({ x: Math.random() * 4 - 2, y: Math.random() * 4 - 2 })
@@ -77,6 +84,8 @@ function useAutoTetris() {
   }, [])
 
   useEffect(() => {
+    if (!started) return
+
     // Auto-play: fast placement in the middle column
     let active = true
     let timeoutId: ReturnType<typeof setTimeout>
@@ -131,12 +140,22 @@ function useAutoTetris() {
 
         spawnCountRef.current++
         triggerShake()
+        // Play drop sound — pitch rises as stack grows
+        let highestRow = ROWS - 1
+        for (let r = 0; r < ROWS; r++) {
+          if (board[r].some((cell) => cell !== 0)) {
+            highestRow = r
+            break
+          }
+        }
+        playDropSound(highestRow)
         setRenderBoard(board.map((r) => [...r]))
         pieceRef.current = null
 
         // Check if board reached the top
         if (dropY === 0) {
           setGameOver(true)
+          playGameOverSound()
           return
         }
 
@@ -152,9 +171,9 @@ function useAutoTetris() {
       active = false
       clearTimeout(timeoutId)
     }
-  }, [triggerShake])
+  }, [triggerShake, started])
 
-  return { renderBoard, gameOver, shake, shakeOffset }
+  return { renderBoard, gameOver, shake, shakeOffset, started, start }
 }
 
 function drawBoard(ctx: CanvasRenderingContext2D, board: number[][], gameOver: boolean) {
@@ -227,7 +246,7 @@ function drawBoard(ctx: CanvasRenderingContext2D, board: number[][], gameOver: b
 
 export function LoadingScreenProvider({ children }: { children: React.ReactNode }) {
   const [showLoading, setShowLoading] = useState(true)
-  const { renderBoard, gameOver, shake, shakeOffset } = useAutoTetris()
+  const { renderBoard, gameOver, shake, shakeOffset, started, start } = useAutoTetris()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // Draw board on each render
@@ -258,47 +277,87 @@ export function LoadingScreenProvider({ children }: { children: React.ReactNode 
             transition={{ duration: 0.8, ease: "easeInOut" }}
             className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center"
           >
-            <div
-              className="relative"
-              style={{
-                transform: shake ? `translate(${shakeOffset.x}px, ${shakeOffset.y}px)` : "none",
-                transition: shake ? "none" : "transform 0.05s ease-out",
-              }}
-            >
-              {/* Tetris board */}
-              <div className="relative rounded-lg border border-border overflow-hidden shadow-[0_0_60px_-20px_rgba(127,219,138,0.15)]">
-                <canvas
-                  ref={canvasRef}
-                  width={BOARD_W}
-                  height={BOARD_H}
-                  className="block"
-                  style={{ imageRendering: "pixelated" }}
-                />
-              </div>
-
-              {/* Side decorations */}
-              <div className="absolute -top-6 -left-6 -right-6 flex justify-between px-2">
-                <span className="text-[10px] font-mono text-muted-foreground/40">TETRIS</span>
-                <span className="text-[10px] font-mono text-muted-foreground/40">LOADING</span>
-              </div>
-
-              {/* Level indicator */}
-              <div className="absolute -bottom-6 left-0 right-0 text-center">
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-[10px] font-mono text-muted-foreground/30">LINES 00</span>
-                  {!fadeOut && (
-                    <motion.span
-                      key={gameOver ? "over" : "playing"}
-                      animate={{ opacity: [0.3, 1, 0.3] }}
+            {!started ? (
+              <motion.button
+                onClick={start}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center cursor-pointer"
+              >
+                <div className="flex flex-col items-center gap-6">
+                  <div
+                    className="relative px-8 py-5 text-sm text-center"
+                    style={{
+                      fontFamily: 'var(--font-press-start-2p), monospace',
+                      backgroundColor: '#FFD700',
+                      border: '4px solid #CC8800',
+                      boxShadow: `
+                        inset 4px 4px 0 #FFE44D,
+                        inset 2px 2px 0 #FFF8CC,
+                        inset -4px -4px 0 #B8860B,
+                        inset -2px -2px 0 #8B6914,
+                        0 0 40px -10px rgba(255, 215, 0, 0.5)
+                      `,
+                      color: '#FFFFFF',
+                      letterSpacing: '0.15em',
+                      lineHeight: 1.8,
+                      textShadow: '2px 2px 0 #8B6914, -1px -1px 0 rgba(255,255,255,0.3)',
+                    }}
+                  >
+                    <motion.div
+                      animate={{ opacity: [0.4, 1, 0.4] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
-                      className="text-[10px] font-mono text-primary/40"
                     >
-                      {gameOver ? "GAME OVER" : "PLAYING"}
-                    </motion.span>
-                  )}
+                      CLICK TO START
+                    </motion.div>
+                  </div>
+                  <div className="text-[10px] font-mono text-muted-foreground/30">loading portfolio...</div>
+                </div>
+              </motion.button>
+            ) : (
+              <div
+                className="relative"
+                style={{
+                  transform: shake ? `translate(${shakeOffset.x}px, ${shakeOffset.y}px)` : "none",
+                  transition: shake ? "none" : "transform 0.05s ease-out",
+                }}
+              >
+                {/* Tetris board */}
+                <div className="relative rounded-lg border border-border overflow-hidden shadow-[0_0_60px_-20px_rgba(127,219,138,0.15)]">
+                  <canvas
+                    ref={canvasRef}
+                    width={BOARD_W}
+                    height={BOARD_H}
+                    className="block"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                </div>
+
+                {/* Side decorations */}
+                <div className="absolute -top-6 -left-6 -right-6 flex justify-between px-2">
+                  <span className="text-[10px] font-mono text-muted-foreground/40">TETRIS</span>
+                  <span className="text-[10px] font-mono text-muted-foreground/40">LOADING</span>
+                </div>
+
+                {/* Level indicator */}
+                <div className="absolute -bottom-6 left-0 right-0 text-center">
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="text-[10px] font-mono text-muted-foreground/30">LINES 00</span>
+                    {!fadeOut && (
+                      <motion.span
+                        key={gameOver ? "over" : "playing"}
+                        animate={{ opacity: [0.3, 1, 0.3] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="text-[10px] font-mono text-primary/40"
+                      >
+                        {gameOver ? "GAME OVER" : "PLAYING"}
+                      </motion.span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

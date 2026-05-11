@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Press_Start_2P } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LoadingScreenProvider } from '@/components/loading-screen'
 import './globals.css'
 
 const geistMono = Geist_Mono({ subsets: ["latin"] });
+const pressStart2P = Press_Start_2P({ subsets: ["latin"], weight: "400", variable: "--font-press-start-2p", display: "swap" });
 
 export const metadata: Metadata = {
   title: 'Jason Calalo | Portfolio',
@@ -47,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background scroll-smooth snap-y snap-mandatory h-screen overflow-y-scroll scrollbar-hide">
+    <html lang="en" className={`${pressStart2P.variable} bg-background scroll-smooth snap-y snap-mandatory h-screen overflow-y-scroll scrollbar-hide`}>
       <body className={`${geistMono.className} antialiased bg-background text-foreground`}>
         <LoadingScreenProvider>
           {children}
