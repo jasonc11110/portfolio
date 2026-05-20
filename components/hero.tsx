@@ -36,7 +36,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           className="mt-4 text-lg md:text-xl lg:text-2xl font-mono font-semibold text-foreground/90"
         >
-          I'm an Aspiring Full-Stack Developer
+          I'm an Aspiring Full-Stack Developer and AI Engineer
         </motion.p>
 
         {/* CTA buttons */}

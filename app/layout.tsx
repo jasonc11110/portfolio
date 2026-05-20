@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist_Mono, Press_Start_2P } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LoadingScreenProvider } from '@/components/loading-screen'
+import { PixiMouseTrailWrapper } from '@/components/pixi-mouse-trail-wrapper'
 import './globals.css'
 
 const geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -53,6 +54,7 @@ export default function RootLayout({
         <LoadingScreenProvider>
           {children}
         </LoadingScreenProvider>
+        <PixiMouseTrailWrapper />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
