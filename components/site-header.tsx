@@ -8,13 +8,13 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border">
       <div className="mx-auto flex max-w-[1200px] items-baseline justify-between gap-6 px-6 py-5 md:px-10 md:py-6">
-        <a href="#top" className="flex items-baseline gap-3">
-          <span className="font-serif text-lg leading-none tracking-tight">
-            JC
-          </span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:inline">
-            Portfolio
-          </span>
+        {/* Wordmark — swap this block for a logo later */}
+        <a
+          href="#top"
+          aria-label="Jason Calalo — home"
+          className="font-serif text-lg leading-none tracking-tight"
+        >
+          JC
         </a>
 
         <nav aria-label="Primary" className="flex items-baseline gap-5 md:gap-8">

@@ -24,13 +24,13 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+  title: 'Jason Calalo',
   description:
     'Portfolio of Jason Calalo, a full-stack developer and AI engineer building geospatial tools, diagnostic systems, and the infrastructure behind them.',
   keywords: ['developer', 'portfolio', 'next.js', 'react', 'typescript', 'full-stack', 'AI', 'ML'],
   authors: [{ name: 'Jason Calalo' }],
   openGraph: {
-    title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+    title: 'Jason Calalo',
     description:
       'Geospatial tools, diagnostic systems, and the infrastructure behind them.',
     type: 'website',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+    title: 'Jason Calalo',
     description:
       'Geospatial tools, diagnostic systems, and the infrastructure behind them.',
   },
