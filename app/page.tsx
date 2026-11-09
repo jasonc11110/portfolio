@@ -1,19 +1,19 @@
-import { Navbar } from "@/components/navbar"
-import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { ProjectTimeline } from "@/components/project-timeline"
-import { Footer } from "@/components/footer"
-import { ScrollIndicator } from "@/components/scroll-indicator"
+import { SiteHeader } from '@/components/site-header'
+import { Hero } from '@/components/hero'
+import { Work } from '@/components/work'
+import { About } from '@/components/about'
+import { Footer } from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <About />
-      <ProjectTimeline />
+    <div id="top" className="min-h-screen">
+      <SiteHeader />
+      <main>
+        <Hero />
+        <Work />
+        <About />
+      </main>
       <Footer />
-      <ScrollIndicator />
-    </main>
+    </div>
   )
 }

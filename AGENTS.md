@@ -1,6 +1,6 @@
 # jasonc11110-portfolio
 
-Portfolio site for jasonc11110. Built with Next.js 16 (App Router), Tailwind v4, shadcn/ui, Framer Motion.
+Portfolio site for jasonc11110. Built with Next.js 16 (App Router), Tailwind v4, shadcn/ui.
 
 ## Commands
 
@@ -16,42 +16,54 @@ pnpm lint         # TypeScript type-check (tsc --noEmit)
 
 ## Architecture
 
-- `app/layout.tsx` — root layout: retro dark theme, Geist Mono font, SEO metadata, Vercel Analytics (prod only), full-page snap-mandatory
-- `app/page.tsx` — single page layout: Navbar → Hero → About → ProjectTimeline → Footer
-- `app/globals.css` — muted retro palette (CSS variables), utility classes (`.scanlines`, `.crt-glow`, `.terminal-cursor`), theme architecture (swap `:root` to change theme)
+- `app/layout.tsx` — root layout: three fonts (Geist sans, Geist Mono, Instrument Serif display), SEO metadata, Vercel Analytics (prod only). No client-side providers.
+- `app/page.tsx` — single page: SiteHeader → Hero → Work → About → Footer.
+- `app/globals.css` — editorial monochrome tokens (paper / ink / hairlines), type mapping, `.label` micro-label utility, `.rise` entrance animation, reduced-motion handling.
 - `components/`:
-  - `navbar.tsx` — retro terminal-style bar, monospace uppercase links, blinking logo cursor
-  - `hero.tsx` — scanline overlay, terminal-style name/tagline, status badge, monospace CTAs
-  - `about.tsx` — two terminal windows (bio + skills), stats as env vars, retro-colored tags
-  - `project-timeline.tsx` — scroll-driven timeline with center dashed line, animated nodes, project cards, detail modal (TerminalWindow)
-  - `footer.tsx` — CSS grid background, simplified contact, monospace layout
-  - `terminal-window.tsx` — shared retro container with `● ● ●` title bar
-  - `retro-tag.tsx` — colored monospace tag component for skills/tech
-  - `loading-screen.tsx` — Tetris auto-player loading screen (NES colors, green-themed glow)
-  - `ui/dialog.tsx` — shadcn Dialog for project detail modals
+  - `site-header.tsx` — static hairline header: serif wordmark, plain nav links, email.
+  - `hero.tsx` — asymmetric 12-column hero: role label, large serif statement, supporting paragraph, and a right-hand definition list (focus / stack / currently / elsewhere).
+  - `work.tsx` — project index as a hairline-divided list with grayscale thumbnails, year, stack line; clicking a row opens a detail dialog. Client component.
+  - `about.tsx` — two-column editorial spread: sticky section label + bio prose + grouped toolkit table.
+  - `footer.tsx` — contact section: large serif email link, elsewhere links, colophon bar.
+  - `ui/dialog.tsx` — shadcn Dialog used for project details (decoration overridden per instance).
 - `lib/utils.ts` — `cn()` helper (clsx + tailwind-merge)
 - `@/*` path alias maps to project root
+- `public/marvel.html` + `app/api/marvel/route.ts` — hidden shared MCU checklist at `/marvel` (rewrite in `next.config.mjs`), unrelated to the portfolio design.
 
 ## Theme System
 
-All colors defined as CSS custom properties in `:root` (`globals.css`). To add a new theme:
-1. Create a class like `.theme-cyberpunk { --primary: ...; }`
-2. Add that class to `<html>`
-3. Override only the variables you want to change
+All colors are CSS custom properties in `:root` (`globals.css`). The palette is deliberately monochrome — black ink on warm paper with a single hairline gray. There is no accent color: hierarchy comes from scale, weight, and spacing.
 
-Retro accent utility colors available: `retro-cyan`, `retro-red`, `retro-yellow`, `retro-blue`, `retro-orange`, `retro-purple`.
+To change themes, override variables under a class (e.g. `.theme-ink { --background: ...; }`) and add it to `<html>`. Keep the palette near-monochrome; a bright accent is what makes a minimal page look generic.
+
+## Design Rules
+
+- **Type**: Instrument Serif for display headings only; Geist sans for UI and body; Geist Mono for micro-labels and metadata (`11px`, uppercase, `0.18em` tracking). Never set body copy in mono.
+- **Rules, not boxes**: separate content with `border-border` hairlines. Avoid cards, shadows, rounded containers, and colored tags.
+- **Composition**: asymmetric grids (`grid-cols-12`, label column + content column). No centered stacks; the hero is a Decide/Learn surface, not a dashboard.
+- **Imagery**: project screenshots keep their real color inside hairline frames — the page stays monochrome, the work doesn't.
+- **Motion**: CSS `.rise` on hero elements only, respecting `prefers-reduced-motion`. No parallax, scroll-jacking, snap sections, mouse trails, scanlines, or loading screens.
+- **No filler**: no fake metrics, decorative stats, icon toppers, gradients, or glassmorphism.
 
 ## Conventions
 
-- Geist Mono primary font (monospace throughout)
-- `snap-y snap-mandatory` on `<html>` — each section is a snap target
-- Sections: Hero (`snap-start`) → About (`snap-start`) → TimelineHeader (`snap-center`) → Project cards (`snap-center`) → Footer (`snap-start`)
-- CSS variables in `:root` on oklch/hex
 - TypeScript strict mode, bundler module resolution
-- Framer Motion for scroll animations: scroll transforms, spring physics, staggered reveals
-- `use client` on all interactive components
+- `use client` only where interaction requires it (`work.tsx`); everything else is a server component
+- Sections use `border-b border-border` and generous vertical padding (`py-20 md:py-28`)
+- Anchor targets: `#top` (page wrapper), `#work`, `#about`, `#contact`
 - No ESLint (Next.js 16 incompatible with eslint-config-next peer deps)
 - `pnpm.overrides.lodash: ">=4.18.0"` to patch recharts transitive dep
+
+## Debugging Workflow
+
+When something is broken or not working as expected, follow this delegation pattern:
+
+1. **@oracle diagnoses** — Delegate the bug to @oracle for root-cause analysis. @oracle reads the code, identifies the bug, and produces a clear diagnosis with specific file paths, line numbers, and what needs to change.
+2. **@fixer fixes** — Pass @oracle's diagnosis to @fixer for implementation. @fixer makes the targeted changes based on @oracle's findings.
+
+This separation saves tokens: @oracle is expensive and should only diagnose, not implement. @fixer is fast and cheap for execution.
+
+**Rule of thumb:** Bug found? → @oracle analyzes → @fixer implements. Never let @oracle both diagnose and fix.
 
 ## Deploy
 

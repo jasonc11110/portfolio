@@ -4,62 +4,54 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================
-   THEME SYSTEM — Retro Portfolio
-   All colors defined as CSS custom properties.
-   Swapping themes = overriding these values.
+   THEME SYSTEM — Editorial monochrome
+   Paper, ink, hairlines. No accent color on purpose:
+   hierarchy comes from scale, weight, and space.
    ============================================ */
 
 :root {
-  /* Core palette — muted retro (default) */
-  --background: #0a0a0a;
-  --foreground: #e0e0d8;
-  --card: #141410;
-  --card-foreground: #e0e0d8;
-  --popover: #141410;
-  --popover-foreground: #e0e0d8;
-  --primary: #7fdb8a;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #c0c0b8;
-  --muted: #1a1a1a;
-  --muted-foreground: #6b6b5e;
-  --accent: #f0c040;
-  --accent-foreground: #0a0a0a;
-  --destructive: #d45555;
-  --destructive-foreground: #0a0a0a;
-  --border: #2a2a24;
-  --input: #1a1a1a;
-  --ring: #7fdb8a;
+  --background: #f6f5f1;
+  --foreground: #131312;
+  --card: #fbfaf7;
+  --card-foreground: #131312;
+  --popover: #fbfaf7;
+  --popover-foreground: #131312;
+  --primary: #131312;
+  --primary-foreground: #f6f5f1;
+  --secondary: #ecebe5;
+  --secondary-foreground: #131312;
+  --muted: #ecebe5;
+  --muted-foreground: #66655d;
+  --accent: #e6e5de;
+  --accent-foreground: #131312;
+  --destructive: #a5281f;
+  --destructive-foreground: #f6f5f1;
+  --border: #d7d5cc;
+  --input: #d7d5cc;
+  --ring: #131312;
 
-  /* Retro accent palette */
-  --retro-cyan: #5ec4c4;
-  --retro-red: #d45555;
-  --retro-yellow: #d4b840;
-  --retro-blue: #5577cc;
-  --retro-orange: #cc8844;
-  --retro-purple: #9966cc;
+  /* Monochrome chart scale (kept for shadcn compatibility) */
+  --chart-1: #131312;
+  --chart-2: #4a4945;
+  --chart-3: #7a7870;
+  --chart-4: #a5a29a;
+  --chart-5: #d0cec5;
 
-  /* Chart tokens (unused but kept for shadcn compatibility) */
-  --chart-1: #7fdb8a;
-  --chart-2: #f0c040;
-  --chart-3: #5ec4c4;
-  --chart-4: #cc8844;
-  --chart-5: #9966cc;
-
-  --radius: 0.25rem;
-  --sidebar: #141410;
-  --sidebar-foreground: #e0e0d8;
-  --sidebar-primary: #7fdb8a;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #e0e0d8;
-  --sidebar-border: #2a2a24;
-  --sidebar-ring: #7fdb8a;
+  --radius: 0.125rem;
+  --sidebar: #fbfaf7;
+  --sidebar-foreground: #131312;
+  --sidebar-primary: #131312;
+  --sidebar-primary-foreground: #f6f5f1;
+  --sidebar-accent: #ecebe5;
+  --sidebar-accent-foreground: #131312;
+  --sidebar-border: #d7d5cc;
+  --sidebar-ring: #131312;
 }
 
 @theme inline {
-  --font-sans: 'Geist Mono', 'Geist Mono Fallback', monospace;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -85,7 +77,7 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 2px);
-  --radius-md: calc(var(--radius));
+  --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
@@ -96,53 +88,46 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Retro accent colors as utility classes */
-  --color-retro-cyan: var(--retro-cyan);
-  --color-retro-red: var(--retro-red);
-  --color-retro-yellow: var(--retro-yellow);
-  --color-retro-blue: var(--retro-blue);
-  --color-retro-orange: var(--retro-orange);
-  --color-retro-purple: var(--retro-purple);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
 }
 
 /* ============================================
-   SCROLLBAR
+   SCROLLBAR — quiet, ink on paper
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border: 3px solid var(--background);
+  border-radius: 999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 /* ============================================
@@ -150,99 +135,79 @@
    ============================================ */
 
 ::selection {
-  background: oklch(0.7 0.18 150 / 0.3);
-  color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 /* ============================================
-   SMOOTH SCROLL
+   EDITORIAL UTILITIES
    ============================================ */
 
-html {
-  scroll-behavior: smooth;
+/* Small mono label used for section indexes and metadata */
+.label {
+  @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground;
+}
+
+/* Hairline rule */
+.hairline {
+  @apply border-t border-border;
+}
+
+/* Inline link: underline that thickens on hover */
+.inline-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness 150ms ease, color 150ms ease;
+}
+.inline-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Entrance: one quiet rise, used on hero elements only. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.rise-1 { animation-delay: 60ms; }
+.rise-2 { animation-delay: 140ms; }
+.rise-3 { animation-delay: 220ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise,
+  .rise-1,
+  .rise-2,
+  .rise-3 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ============================================
-   RETRO UTILITY CLASSES
+   FOCUS
    ============================================ */
 
-/* Scanline overlay */
-.scanlines {
-  position: relative;
-}
-
-.scanlines::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.15) 2px,
-    rgba(0, 0, 0, 0.15) 4px
-  );
-  z-index: 1;
-}
-
-/* CRT text glow */
-.crt-glow {
-  text-shadow: 0 0 6px var(--primary), 0 0 12px var(--primary);
-}
-
-/* Blinking cursor */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.terminal-cursor::after {
-  content: '_';
-  animation: blink 1s step-end infinite;
-  color: var(--primary);
-}
-
-/* Pixel / retro border */
-.pixel-border {
-  border: 2px solid var(--border);
-}
-
-/* Terminal prompt */
-.terminal-prompt::before {
-  content: '$ ';
-  color: var(--primary);
-}
-
-/* Comment style */
-.terminal-comment {
-  color: var(--muted-foreground);
-}
-
-/* Image shimmer placeholder */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.image-placeholder {
-  background: linear-gradient(
-    90deg,
-    var(--card) 25%,
-    var(--secondary) 50%,
-    var(--card) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Focus ring */
 *:focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline-offset: 3px;
+  border-radius: 1px;
 }

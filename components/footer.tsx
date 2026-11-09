@@ -1,94 +1,61 @@
-"use client"
+import { ArrowUpRight } from 'lucide-react'
 
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react"
-import { motion } from "framer-motion"
+const elsewhere = [
+  { label: 'GitHub', href: 'https://github.com/jasonc11110' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jason-calalo' },
+]
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+  const year = new Date().getFullYear()
 
   return (
-    <footer
-      id="contact"
-      className="relative min-h-screen flex items-center justify-center snap-start overflow-hidden"
-    >
-      {/* Subtle grid background (CSS only) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, var(--border) 1px, transparent 1px),
-            linear-gradient(to bottom, var(--border) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      <div className="relative z-10 max-w-4xl mx-auto px-6 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col items-center text-center"
-        >
-          <p className="text-[11px] font-mono tracking-[0.2em] text-primary mb-4 uppercase">
-            Contact
-          </p>
-
-          <h2 className="text-3xl md:text-5xl font-mono font-bold tracking-tight text-foreground uppercase">
-            Let&apos;s build something
-            <br />
-            <span className="text-primary">together</span>
-          </h2>
-
-          <p className="mt-6 max-w-md text-sm text-muted-foreground leading-relaxed font-mono">
-            <span className="text-muted-foreground/50">// </span>
-            Whether you have a project in mind, a collaboration idea, or just want to say hi
-            — I&apos;d love to hear from you.
-          </p>
-
-          <motion.a
-            href="mailto:jcalalo0110@gmail.com"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="mt-10 inline-flex items-center gap-3 border-2 border-primary px-8 py-3 text-xs font-mono tracking-widest text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
-          >
-            <Mail className="h-4 w-4" />
-            SAY_HELLO
-          </motion.a>
-
-          <div className="mt-12 flex items-center gap-6">
-            {[
-              { icon: Github, href: "https://github.com/jasonc11110", label: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/jason-calalo", label: "LinkedIn" },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-                aria-label={s.label}
-              >
-                <s.icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-16 flex flex-col sm:flex-row items-center gap-3 text-xs text-muted-foreground font-mono">
-            <p>© {new Date().getFullYear()} Jason Calalo</p>
-            <span className="hidden sm:inline text-border">//</span>
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors duration-200 group cursor-pointer"
+    <footer id="contact">
+      <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-10">
+          <div className="col-span-12 lg:col-span-8">
+            <p className="label">03</p>
+            <h2 className="mt-4 font-serif text-4xl leading-none tracking-tight md:text-6xl">
+              Say hello.
+            </h2>
+            <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-muted-foreground">
+              Email is the fastest way to reach me.
+            </p>
+            <a
+              href="mailto:jcalalo0110@gmail.com"
+              className="inline-link mt-8 inline-block font-serif text-2xl tracking-tight md:text-4xl"
             >
-              BACK_TO_TOP
-              <ArrowUp className="h-3 w-3 transition-transform duration-200 group-hover:-translate-y-0.5" />
-            </button>
+              jcalalo0110@gmail.com
+            </a>
           </div>
-        </motion.div>
+
+          <div className="col-span-12 lg:col-span-4 lg:border-l lg:border-border lg:pl-8">
+            <p className="label">Elsewhere</p>
+            <ul className="mt-4">
+              {elsewhere.map((link) => (
+                <li key={link.label} className="border-t border-border">
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-baseline justify-between py-3 text-sm"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-20 flex flex-col gap-4 border-t border-border pt-6 text-[11px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono uppercase tracking-[0.14em]">
+            &copy; {year} Jason Calalo
+          </p>
+          <a href="#top" className="underline decoration-1 underline-offset-4 hover:text-foreground hover:decoration-2">
+            Back to top
+          </a>
+        </div>
       </div>
     </footer>
   )

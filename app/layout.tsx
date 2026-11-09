@@ -1,28 +1,46 @@
 import type { Metadata } from 'next'
-import { Geist_Mono, Press_Start_2P } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { LoadingScreenProvider } from '@/components/loading-screen'
-import { PixiMouseTrailWrapper } from '@/components/pixi-mouse-trail-wrapper'
 import './globals.css'
 
-const geistMono = Geist_Mono({ subsets: ["latin"] });
-const pressStart2P = Press_Start_2P({ subsets: ["latin"], weight: "400", variable: "--font-press-start-2p", display: "swap" });
+const geist = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist',
+  display: 'swap',
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'Jason Calalo | Portfolio',
-  description: 'Personal portfolio of Jason Calalo — crafting digital experiences that blend thoughtful design with robust engineering.',
+  title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+  description:
+    'Portfolio of Jason Calalo, a full-stack developer and AI engineer building geospatial tools, diagnostic systems, and the infrastructure behind them.',
   keywords: ['developer', 'portfolio', 'next.js', 'react', 'typescript', 'full-stack', 'AI', 'ML'],
   authors: [{ name: 'Jason Calalo' }],
   openGraph: {
-    title: 'Jason Calalo | Portfolio',
-    description: 'Crafting digital experiences that blend thoughtful design with robust engineering.',
+    title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+    description:
+      'Geospatial tools, diagnostic systems, and the infrastructure behind them.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jason Calalo | Portfolio',
-    description: 'Crafting digital experiences that blend thoughtful design with robust engineering.',
+    title: 'Jason Calalo — Full-Stack Developer & AI Engineer',
+    description:
+      'Geospatial tools, diagnostic systems, and the infrastructure behind them.',
   },
   icons: {
     icon: [
@@ -49,12 +67,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${pressStart2P.variable} bg-background scroll-smooth snap-y snap-mandatory h-screen overflow-y-scroll scrollbar-hide`}>
-      <body className={`${geistMono.className} antialiased bg-background text-foreground`}>
-        <LoadingScreenProvider>
-          {children}
-        </LoadingScreenProvider>
-        <PixiMouseTrailWrapper />
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+    >
+      <body className="bg-background font-sans text-foreground antialiased">
+        {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

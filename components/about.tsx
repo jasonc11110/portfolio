@@ -1,117 +1,52 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { TerminalWindow } from "@/components/terminal-window"
-import { RetroTag } from "@/components/retro-tag"
-
-const skills = [
-  { label: "TypeScript", color: "blue" as const },
-  { label: "Python", color: "yellow" as const },
-  { label: "React / Next.js", color: "cyan" as const },
-  { label: "Tailwind / UI", color: "green" as const },
-  { label: "Docker", color: "blue" as const },
-  { label: "AWS / GCP", color: "orange" as const },
-  { label: "PostgreSQL", color: "purple" as const },
-  { label: "TensorFlow / ML", color: "yellow" as const },
-  { label: "OpenCV", color: "red" as const },
-  { label: "Java", color: "blue" as const },
-  { label: "C++", color: "purple" as const },
-  { label: "DevNet Associate", color: "orange" as const },
-  { label: "CCNA", color: "cyan" as const },
+const toolkit = [
+  { group: 'Languages', items: 'TypeScript, Python, Java, C++' },
+  { group: 'Frontend', items: 'React, Next.js, Tailwind CSS' },
+  { group: 'Backend & cloud', items: 'Flask, PostgreSQL, Docker, AWS, GCP' },
+  { group: 'ML & vision', items: 'TensorFlow, OpenCV' },
+  { group: 'Networking', items: 'CCNA, DevNet Associate' },
 ]
 
 export function About() {
   return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center justify-center px-6 py-24 md:px-12 lg:px-20 snap-start relative overflow-hidden"
-    >
-      <div className="relative max-w-5xl mx-auto w-full">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          <p className="text-[11px] font-mono tracking-[0.2em] text-primary mb-2 uppercase">
-            About Me
+    <section id="about" className="border-b border-border">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-12 gap-x-8 gap-y-10 px-6 py-20 md:px-10 md:py-28">
+        <div className="col-span-12 lg:col-span-4">
+          <div className="lg:sticky lg:top-10">
+            <p className="label">02</p>
+            <h2 className="mt-4 font-serif text-4xl leading-none tracking-tight md:text-5xl">
+              About
+            </h2>
+          </div>
+        </div>
+
+        <div className="col-span-12 lg:col-span-8">
+          <p className="max-w-[46ch] font-serif text-2xl leading-[1.35] tracking-[-0.01em] md:text-[1.75rem]">
+            I&rsquo;m a full-stack developer and AI engineer.
           </p>
-          <h2 className="text-3xl md:text-4xl font-mono font-bold tracking-tight text-foreground uppercase">
-            Building things that{" "}
-            <span className="text-primary">matter</span>
-          </h2>
-        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Bio terminal */}
-          <TerminalWindow title="~/about/bio.txt" delay={0.1}>
-            <div className="space-y-4">
-              <p>
-                <span className="text-primary">$</span>{" "}
-                <span className="text-foreground">cat bio.txt</span>
-              </p>
-              <p className="text-muted-foreground">
-                I&apos;m a Full-Stack developer and AI engineer passionate about building
-                robust systems — from cloud infrastructure and APIs to
-                machine learning and computer vision applications.
-              </p>
-              <p className="text-muted-foreground">
-                Currently working with backend technologies, cloud deployments,
-                and machine learning tooling to create reliable, performant
-                solutions that make an impact.
-              </p>
-              <div className="pt-2 border-t border-border">
-                <div className="mt-3 space-y-1 text-xs font-mono">
-                  <div className="flex gap-3">
-                    <span className="text-primary">YEARS_BUILDING</span>
-                    <span className="text-muted-foreground">=</span>
-                    <span className="text-foreground">3</span>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-primary">PROJECTS</span>
-                    <span className="text-muted-foreground">=</span>
-                    <span className="text-foreground">2</span>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-primary">COFFEE_CONSUMED</span>
-                    <span className="text-muted-foreground">=</span>
-                    <span className="text-foreground">∞</span>
-                  </div>
+          <div className="mt-8 max-w-[62ch] text-[15px] leading-[1.75] text-muted-foreground">
+            <p>
+              I build the APIs, pipelines and interfaces around a model —
+              geospatial tools, medical imaging, cloud deploys.
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <p className="label">Toolkit</p>
+            <dl className="mt-4">
+              {toolkit.map((row) => (
+                <div
+                  key={row.group}
+                  className="grid gap-1 border-t border-border py-3.5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+                >
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground sm:pt-0.5">
+                    {row.group}
+                  </dt>
+                  <dd className="text-sm leading-relaxed">{row.items}</dd>
                 </div>
-              </div>
-            </div>
-          </TerminalWindow>
-
-          {/* Skills terminal */}
-          <TerminalWindow title="~/about/skills" delay={0.2}>
-            <div className="space-y-4">
-              <p>
-                <span className="text-primary">$</span>{" "}
-                <span className="text-foreground">ls skills/</span>
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <RetroTag
-                    key={skill.label}
-                    label={skill.label}
-                    color={skill.color}
-                  />
-                ))}
-              </div>
-              <p className="text-muted-foreground/50 text-[11px] pt-2">
-                {/* Empty line for spacing */}
-              </p>
-              <p>
-                <span className="text-primary">$</span>{" "}
-                <span className="text-foreground">whoami</span>
-              </p>
-              <p className="text-muted-foreground">
-                Full-Stack developer, AI engineer, ML engineer
-              </p>
-            </div>
-          </TerminalWindow>
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </section>
