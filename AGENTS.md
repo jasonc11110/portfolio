@@ -50,7 +50,7 @@ To change themes, override variables under a class (e.g. `.theme-ink { --backgro
 - TypeScript strict mode, bundler module resolution
 - `use client` only where interaction requires it (`work.tsx`); everything else is a server component
 - Sections use `border-b border-border` and generous vertical padding (`py-20 md:py-28`)
-- Anchor targets: `#top` (page wrapper), `#work`, `#about`, `#contact`
+- Anchor targets: `#top` (page wrapper), `#projects`, `#about`, `#contact`
 - No ESLint (Next.js 16 incompatible with eslint-config-next peer deps)
 - `pnpm.overrides.lodash: ">=4.18.0"` to patch recharts transitive dep
 

@@ -1,7 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
 
-const facts = [
-  { term: 'Stack', value: 'TypeScript, Python, React, TensorFlow' },
+const elsewhere = [
+  { label: 'GitHub', href: 'https://github.com/jasonc11110' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jason-calalo' },
 ]
 
 export function Hero() {
@@ -23,11 +24,11 @@ export function Hero() {
 
           <div className="rise rise-3 mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
             <a
-              href="#work"
+              href="#projects"
               className="group inline-flex items-center gap-1.5 text-sm font-medium"
             >
               <span className="underline decoration-1 underline-offset-4 group-hover:decoration-2">
-                View work
+                View projects
               </span>
               <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -40,44 +41,23 @@ export function Hero() {
           </div>
         </div>
 
-        <aside className="col-span-12 lg:col-span-4 lg:border-l lg:border-border lg:pl-8">
-          <p className="label rise rise-2">Details</p>
-          <dl className="rise rise-3 mt-6 space-y-0">
-            {facts.map((fact) => (
-              <div
-                key={fact.term}
-                className="grid grid-cols-[7rem_1fr] gap-4 border-t border-border py-3.5 text-sm first:border-t-0 first:pt-0"
-              >
-                <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                  {fact.term}
-                </dt>
-                <dd className="leading-snug">{fact.value}</dd>
-              </div>
+        <aside className="col-span-12 lg:col-span-4 lg:flex lg:h-full lg:flex-col lg:justify-center lg:border-l lg:border-border lg:pl-8">
+          <p className="label rise rise-2">Elsewhere</p>
+          <ul className="rise rise-3 mt-4 max-w-[14rem]">
+            {elsewhere.map((link) => (
+              <li key={link.label} className="border-t border-border">
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-baseline justify-between py-3 text-sm"
+                >
+                  {link.label}
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
             ))}
-            <div className="grid grid-cols-[7rem_1fr] gap-4 border-t border-border py-3.5 text-sm">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                Elsewhere
-              </dt>
-              <dd className="flex flex-wrap gap-x-4 gap-y-1 leading-snug">
-                <a
-                  href="https://github.com/jasonc11110"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-link"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/jason-calalo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-link"
-                >
-                  LinkedIn
-                </a>
-              </dd>
-            </div>
-          </dl>
+          </ul>
         </aside>
       </div>
     </section>

@@ -133,13 +133,13 @@ export function Work() {
   const [selected, setSelected] = useState<Project | null>(null)
 
   return (
-    <section id="work" className="border-b border-border">
+    <section id="projects" className="border-b border-border">
       <div className="mx-auto max-w-[1200px] px-6 py-20 md:px-10 md:py-24">
         <div className="flex items-baseline justify-between gap-6">
           <div>
             <p className="label">01</p>
             <h2 className="mt-4 font-serif text-4xl leading-none tracking-tight md:text-5xl">
-              Work
+              Projects
             </h2>
           </div>
           <span className="label pb-1">
